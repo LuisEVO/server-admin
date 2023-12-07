@@ -13,7 +13,15 @@ const validator = makeValidateBody(PermissionValidator);
 
 export const PermissionRouter = Router();
 PermissionRouter.get('/', controller.getAll.bind(controller));
+PermissionRouter.get(
+  '/paginated',
+  controller.getAllPaginated.bind(controller)
+);
 PermissionRouter.get('/:id(\\d+)', controller.getOne.bind(controller));
 PermissionRouter.post('/', validator, controller.create.bind(controller));
-PermissionRouter.put('/:id(\\d+)', validator, controller.update.bind(controller));
+PermissionRouter.put(
+  '/:id(\\d+)',
+  validator,
+  controller.update.bind(controller)
+);
 PermissionRouter.delete('/:id(\\d+)', controller.delete.bind(controller));

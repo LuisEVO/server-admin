@@ -9,6 +9,16 @@ export class PermissionController {
     res.json(records);
   }
 
+  async getAllPaginated(req: Request, res: Response) {
+    const pageSize = req.query.pageSize ? +req.query.pageSize : undefined;
+    const page = req.query.page ? +req.query.page : undefined;
+    const records = await this.permissionService.getAllPaginated({
+      pageSize,
+      page,
+    });
+    res.json(records);
+  }
+
   async getOne(req: Request, res: Response) {
     const record = await this.permissionService.getOne(+req.params.id);
     res.json(record);

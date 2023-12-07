@@ -6,9 +6,33 @@ export class PermissionRepository {
     return await DB.permission.findMany();
   }
 
+  async getAllPaginated(params: { pageSize?: number; page?: number }) {
+    const { pageSize, page = 0 } = params;
+    const conditions: any = pageSize
+      ? {
+          take: pageSize,
+          skip: pageSize * page,
+        }
+      : {};
+    return await DB.$transaction([
+      DB.permission.count(),
+      DB.permission.findMany(conditions),
+    ]);
+  }
+
   async getById(id: number) {
     return await DB.permission.findUnique({
       where: { id },
+    });
+  }
+
+  async getByIdWithDependencies(id: number) {
+    return await DB.permission.findUnique({
+      where: { id },
+      include: {
+        rolPermission: true,
+        userPermission: true,
+      },
     });
   }
 

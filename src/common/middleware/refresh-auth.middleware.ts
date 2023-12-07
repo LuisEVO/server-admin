@@ -26,7 +26,7 @@ export const RefreshAuthMiddleware = async (
   }
 
   if (!decodedToken) {
-    throw new AppError(403, 'Token invalido');
+    throw new AppError(403, 'Token invalido 001');
   }
 
   if (!tokenService.isRefreshToken(decodedToken)) {
@@ -40,13 +40,13 @@ export const RefreshAuthMiddleware = async (
   }
 
   if (!user.refreshToken) {
-    throw new AppError(403, 'Token Invalido');
+    throw new AppError(403, 'Token Invalido 0002');
   }
 
   const isValidRefreshToken = refreshToken === user.refreshToken;
 
   if (!isValidRefreshToken) {
-    throw new AppError(403, 'Token Invalido');
+    throw new AppError(403, 'Token Invalido 0003');
   }
 
   req.userId = decodedToken.userId;
